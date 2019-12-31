@@ -1,0 +1,46 @@
+<aura:component controller="HotelReservationController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+  
+    <aura:attribute name="isOpen" type="boolean" default="false" />
+    
+    
+    <aura:attribute name="sortedBy" type="String"/>
+    <aura:attribute name="sortedDirection" type="String"/>
+    <aura:attribute name="defaultSortDirection" type="String"/>
+                                                
+    <aura:attribute name="errors" type="Object" default="[]"/>
+    <aura:attribute name="draftValues" type="Reservation__c[]" default="[]"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="mydata" type="Reservation__c[]"/>
+    
+    
+    
+   
+    
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+    
+    <aura:handler event="force:refreshView" action="{!c.doinit}" />
+    
+
+    <lightning:datatable aura:id="Reservations"
+                         columns="{! v.columns }"
+                         data="{! v.mydata }"
+                         keyField="Id"
+                         errors="{! v.errors }"
+                         draftValues="{! v.draftValues }"
+                         
+                         onrowaction="{! c.deleteRes }"
+                        
+                         rowNumberOffset="0"
+                         sortedBy="{! v.sortedBy }"
+                         sortedDirection="{! v.sortedDirection }"
+                         defaultSortDirection="{! v.defaultSortDirection }"
+                         onsort="{! c.updateColumnSorting }"
+                         hideCheckboxColumn="true"
+                         />
+    
+    
+    
+   
+</aura:component>
