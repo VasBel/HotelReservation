@@ -1,0 +1,63 @@
+<apex:page standardController="Reservation__c" extensions="HotelReservationVFController">
+    <apex:detail inlineEdit="true" relatedList="true"/>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockButtons style="padding-left: 350px">
+                <apex:commandButton value="Save" style="background: white;" action="{!QuickSave}" rerender="theForm" oncomplete="window.top.location.reload()" />
+            </apex:pageBlockButtons>
+            <apex:messages />
+            <apex:pageBlockSection >
+                <apex:inputField value="{!Reservation__c.Name}"/>
+                <apex:inputField value="{!Reservation__c.Check_in__c}"/>
+                <apex:inputField value="{!Reservation__c.Check_out__c}"/>
+                <apex:inputField value="{!Reservation__c.CountOfGuests__c}"/>
+                <apex:inputField value="{!Reservation__c.City__c}"/>
+                <apex:inputField value="{!Reservation__c.Additional__c}"/>
+                               <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Switch between reservations type" />
+                        <apex:selectList value="{!Reservation__c.RecordTypeID}" >
+                            <apex:selectOptions value="{!RecordTypes}" />
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                <apex:outputText Style="padding-left: 278px" value="Enter your email if you want to be notified of the creation"/>
+                <div>
+                 
+				<apex:inputField value="{!Reservation__c.EmailTo__c}"/>   
+                </div>
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+    </apex:form> 
+    
+    <apex:form >
+        
+        
+        <apex:includeLightning />
+        
+        <div id="Res"></div>
+        
+        <script>
+        
+        $Lightning.use("c:HotelReservation", function() {
+            
+            $Lightning.createComponent(
+                
+                "c:HotelReservationCmp",
+               
+                {},
+                
+                "Res",
+                
+                function(cmp) {
+                    
+                    console.log("Component is created!");
+                    
+                    console.log(cmp);
+                    
+                }); 
+        });    
+        </script>               
+    </apex:form> 
+
+</apex:page>
